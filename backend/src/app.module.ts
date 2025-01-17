@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 import { NewsService } from './news/news.service';
 import { NewsListener } from './news/news.listener';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { NewsController } from './news/news.controller'; // Add the NewsController import
 
 @Module({
   imports: [
@@ -20,7 +19,6 @@ import { NewsController } from './news/news.controller'; // Add the NewsControll
       },
     ]),
   ],
-  controllers: [NewsController],
   providers: [NewsService, NewsListener],
 })
-export class AppModule { }
+export class AppModule {}
