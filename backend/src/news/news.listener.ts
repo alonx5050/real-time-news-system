@@ -6,7 +6,7 @@ import { NewsService } from './news.service';
 export class NewsListener {
     constructor(private readonly newsService: NewsService) { }
 
-    @EventPattern('news.#') // Listen for all news messages
+    @EventPattern('news.#') // Listen to all routing keys starting with 'news.'
     handleNewsMessage(news: any) {
         console.log('Received news:', news);
         this.newsService.addNewsItem(news);

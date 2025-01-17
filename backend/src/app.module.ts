@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { NewsService } from './news/news.service';
+import { NewsListener } from './news/news.listener';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { NewsListener } from './news/news.listener';  // Import the NewsListener
+import { NewsController } from './news/news.controller'; // Add the NewsController import
 
 @Module({
   imports: [
@@ -10,8 +11,8 @@ import { NewsListener } from './news/news.listener';  // Import the NewsListener
         name: 'RABBITMQ_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: ['amqp://localhost:5672'],
-          queue: 'news_queue',
+          urls: ['amqp://localhost:5672'], // RabbitMQ URL
+          queue: 'news_queue', // Name of the queue
           queueOptions: {
             durable: true,
           },
@@ -19,6 +20,7 @@ import { NewsListener } from './news/news.listener';  // Import the NewsListener
       },
     ]),
   ],
-  providers: [NewsService, NewsListener],  // Add the NewsListener to the providers
+  controllers: [NewsController],
+  providers: [NewsService, NewsListener],
 })
 export class AppModule { }
